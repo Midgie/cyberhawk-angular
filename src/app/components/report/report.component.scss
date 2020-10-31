@@ -1,0 +1,49 @@
+.container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .container-inner {
+        margin-top: 30px;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .table-header {
+            display: flex;
+            width: 90%;
+            justify-content: flex-end;
+
+            .search-report {
+                align-items: right;
+                width: 200px;
+
+                .icon {
+                    vertical-align: sub;
+                }
+            }   
+        }
+
+        .report-table {
+            width: 90%;
+
+            .item-column {
+                background-color: #eee8e8;
+                padding-right: 20px;
+                text-align: right;
+                width: 100px;
+            }
+
+            .column-title {
+                text-align: center;
+            }
+
+            .report-column {
+                padding-left: 20px;
+                text-align: left;
+            }
+        }
+    }
+}
