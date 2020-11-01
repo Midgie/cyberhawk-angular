@@ -6,7 +6,13 @@
         <div class="table-header">
             <mat-form-field class="search-report">
                 <mat-icon class="icon" matPrefix>search</mat-icon>
-                <input matInput (keyup)="filter($event.target.value)" placeholder="Search">
+                <input matInput (keyup)="filter($event.target.value)" placeholder="Search"
+                [matAutocomplete]="auto" [formControl]="form">
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of filterItems | async" [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-autocomplete>
             </mat-form-field>
         </div>
         <div class="table-body">
@@ -17,7 +23,7 @@
                 </ng-container>
                 
                 <ng-container matColumnDef="status">
-                    <th mat-header-cell *matHeaderCellDef class="column-title" mat-sort-header>Report</th>
+                    <th mat-header-cell *matHeaderCellDef class="column-title">Report</th>
                     <td mat-cell *matCellDef="let element" class="report-column">{{ element.report }}</td>
                 </ng-container>
                 

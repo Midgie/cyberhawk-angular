@@ -2,6 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import {FormControl, FormGroup} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+
 import { ReportService, WindmillReport } from 'src/app/services/report.service';
 
 
@@ -13,6 +17,13 @@ import { ReportService, WindmillReport } from 'src/app/services/report.service';
 export class ReportComponent implements OnInit {
   title: string = 'Windmill Report';
   columnHeaders: string[] = [ 'item', 'status' ];
+
+  form: FormControl = new FormControl();
+  // formGroup: FormGroup = new FormGroup();
+  options: string[] = [ 'Coating Damage', 'Lightning Strike', 'Coating Damage and Lightning Strike' ];
+  filterItems: Observable<string[]>;
+  
+  
   report: MatTableDataSource<WindmillReport>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -28,6 +39,11 @@ export class ReportComponent implements OnInit {
       return data.item.toString().toLowerCase().includes(filter) 
           || data.report.toString().toLowerCase().includes(filter);
     };
+
+    this.filterItems = this.form.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
   }
 
   ngAfterViewInit() {
@@ -37,5 +53,11 @@ export class ReportComponent implements OnInit {
 
   filter( search: string ): void {
     this.report.filter = search.trim().toLowerCase();
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    // console.log( this.filterItems );
+    return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
 }
