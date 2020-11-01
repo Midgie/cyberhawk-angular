@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface WindmillReport {
   item: number,
@@ -31,15 +32,15 @@ export class ReportService {
         return state;
     }
 
-    fetch(): WindmillReport[] {
-      let report: WindmillReport[] = [];
-      for( let i = 1; i <= this.numItems; ++i ) {
-        report.push( {
-          item: i,
-          report: this.checkDamages( i )
-        } );
-      }
-      return report;
-    //  this.http.get<WindmillReport[]>( this.reportUrl );
+    fetch(): Observable<WindmillReport[]> {
+      // let report: WindmillReport[] = [];
+      // for( let i = 1; i <= this.numItems; ++i ) {
+      //   report.push( {
+      //     item: i,
+      //     report: this.checkDamages( i )
+      //   } );
+      // }
+      // return report;
+     return this.http.get<WindmillReport[]>( this.reportUrl );
     }
 }
