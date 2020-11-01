@@ -11,6 +11,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { ReportPipe } from './pipes/report.pipe';
 
 @NgModule({
@@ -28,7 +30,9 @@ import { ReportPipe } from './pipes/report.pipe';
     MatIconModule,
     MatFormFieldModule,
     MatTableModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

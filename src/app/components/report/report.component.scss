@@ -1,15 +1,21 @@
 .container {
-    height: 100%;
+    height: calc( 100% - 104px );
+    padding: 20px;
     width: 100%;
     display: flex;
     justify-content: center;
 
     .container-inner {
-        margin-top: 30px;
         width: 50%;
         display: flex;
         flex-direction: column;
         align-items: center;
+
+        .form-header {
+            margin-top: 10px;
+            padding: 20px;
+            font-size: 24pt;
+        }
 
         .table-header {
             display: flex;
@@ -26,23 +32,28 @@
             }   
         }
 
-        .report-table {
+        .table-body {
+            overflow: scroll;
             width: 90%;
-
-            .item-column {
-                background-color: #eee8e8;
-                padding-right: 20px;
-                text-align: right;
-                width: 100px;
-            }
-
-            .column-title {
-                text-align: center;
-            }
-
-            .report-column {
-                padding-left: 20px;
-                text-align: left;
+            
+            .report-table {
+                width: 100%;
+                
+                .item-column {
+                    background-color: #eee8e8;
+                    padding-right: 20px;
+                    text-align: right;
+                    width: 100px;
+                }
+                
+                .column-title {
+                    text-align: center;
+                }
+                
+                .report-column {
+                    padding-left: 20px;
+                    text-align: left;
+                }
             }
         }
     }
