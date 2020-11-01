@@ -2,45 +2,25 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-export interface WindmillReport {
-  item: number,
-  report: string
+export interface WindTurbineReport {
+    hasCoatingDamage: boolean,
+    hasLightningStrike: boolean,
+    message: string
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+export interface WindTurbineApiResponse {
+    item: number,
+    report: WindTurbineReport
+}
+@Injectable( {
+    providedIn: 'root'
+} )
 export class ReportService {
-    reportUrl = 'ajax/reports/windmill.php';
-    
-    numItems: number = 100;
-    COATING_DMG: number = 3;
-    LIGHTNING_STRIKE: number = 5;
+    reportUrl = 'api/windturbine.php';
 
     constructor( private http: HttpClient ) { }
 
-    checkDamages( i ) {
-      let state = i;
-      if( !( i % this.COATING_DMG ) ) {
-        state = 'Coating Damage';
-        if( !( i % this.LIGHTNING_STRIKE ) ) {
-                state += ' and Lightning Strike';
-            }
-        } else if ( !( i % this.LIGHTNING_STRIKE ) ) {
-            state = 'Lightning Strike';
-        }
-        return state;
-    }
-
-    fetch(): Observable<WindmillReport[]> {
-      // let report: WindmillReport[] = [];
-      // for( let i = 1; i <= this.numItems; ++i ) {
-      //   report.push( {
-      //     item: i,
-      //     report: this.checkDamages( i )
-      //   } );
-      // }
-      // return report;
-     return this.http.get<WindmillReport[]>( this.reportUrl );
+    fetch(): Observable<WindTurbineApiResponse[]> {
+        return this.http.get<WindTurbineApiResponse[]>( this.reportUrl );
     }
 }

@@ -6,58 +6,77 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
-import { ReportService, WindmillReport } from 'src/app/services/report.service';
+import { ReportService, WindTurbineApiResponse } from 'src/app/services/report.service';
 
-
-@Component({
-  selector: 'app-report',
-  templateUrl: './report.component.html',
-  styleUrls: ['./report.component.scss']
-})
+interface WindTurbineTable {
+    item: number;
+    report: string;
+}
+@Component( {
+    selector: 'app-report',
+    templateUrl: './report.component.html',
+    styleUrls: ['./report.component.scss']
+} )
 export class ReportComponent implements OnInit {
-  title: string = 'Windmill Report';
-  columnHeaders: string[] = [ 'item', 'status' ];
+    // form title
+    title: string = 'Wind Turbine Report';
+    // AutoCompleteOptions
+    form: FormControl = new FormControl();
+    options: string[] = [ 'Coating Damage', 'Lightning Strike', 'Coating Damage and Lightning Strike' ];
+    filterItems: Observable<string[]>;
+    // Table Data
+    columnHeaders: string[] = [ 'item', 'status' ];
+    // tableData: WindTurbineTable[] = [];
+    tableData: MatTableDataSource<WindTurbineTable>;
 
-  form: FormControl = new FormControl();
-  options: string[] = [ 'Coating Damage', 'Lightning Strike', 'Coating Damage and Lightning Strike' ];
-  filterItems: Observable<string[]>;
-  
-  data: WindmillReport[] = [];
-  report: MatTableDataSource<WindmillReport>;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+    constructor( private reports: ReportService ) {}
 
-  constructor( private reports: ReportService ) { }
+    ngOnInit(): void {
+        // setup the onchange listener for the input box
+        this.filterItems = this.form.valueChanges.pipe(
+            startWith(''),
+            map( value => this._filter( value ) )
+       );
+    }
 
-  ngOnInit(): void {
-    this.reports.fetch()
-      .subscribe( ( data: WindmillReport[] ) => this.data = data );
-    this.report = new MatTableDataSource<WindmillReport>( this.data );
+    ngAfterViewInit() {
+        // fetch the WindTurbine report from the server
+        this.reports.fetch()
+            .subscribe( ( data: WindTurbineApiResponse[] ) => { 
+                this.tableData = new MatTableDataSource<WindTurbineTable>( this._buildTable( data ) );
 
-    this.report.filterPredicate = (data, filter: string): boolean => {
-      return data.item.toString().toLowerCase().includes(filter) 
-          || data.report.toString().toLowerCase().includes(filter);
-    };
+                this.tableData.filterPredicate = (data, filter: string): boolean => {
+                    return data.item.toString().toLowerCase().includes(filter) 
+                        || data.report.toString().toLowerCase().includes(filter);
+                };
 
-    this.filterItems = this.form.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
-  }
+                this.tableData.paginator = this.paginator;
+                this.tableData.sort = this.sort;
+            } );
+    }
 
-  ngAfterViewInit() {
-    this.report.paginator = this.paginator;
-    this.report.sort = this.sort;
-  }
+    // search based on the predicate
+    search( search: string ): void {
+        this.tableData.filter = search.trim().toLowerCase();
+    }
 
-  filter( search: string ): void {
-    this.report.filter = search.trim().toLowerCase();
-  }
+    // transform our API response into a compatible format for our table
+    private _buildTable( data: WindTurbineApiResponse[] ) {
+        let table: WindTurbineTable[] = [];
+        for( const { item, report } of data ) {
+            table.push( { 
+                item: item,
+                report: report.message
+            } );
+        }
+        return table;
+    }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    // console.log( this.filterItems );
-    return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
-  }
+    private _filter( value: string ): string[] {
+        const filterValue = value.toLowerCase();
+        return this.options.filter( option => option.toLowerCase().indexOf( filterValue ) === 0 );
+    }
 }

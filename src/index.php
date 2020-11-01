@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Cyberhawk Windmill Report</title>
+  <title>Cyberhawk Wind Turbine Report</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
+<link rel="stylesheet" href="styles.04274f8de38ba6ec7482.css"></head>
 <body class="mat-typography">
   <app-root></app-root>
-</body>
+<script src="runtime.acf0dec4155e77772545.js" defer></script><script src="polyfills.35a5ca1855eb057f016a.js" defer></script><script src="main.bae3e2a03854cb844dcd.js" defer></script></body>
 </html>
