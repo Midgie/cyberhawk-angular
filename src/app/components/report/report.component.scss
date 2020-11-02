@@ -1,6 +1,6 @@
 .container {
     display: flex;
-    height: calc( 100% - 104px );
+    height: calc( 100% - 154px );
     justify-content: center;
     padding: 20px;
 
@@ -59,4 +59,9 @@
             }
         }
     }
+}
+
+.footer {
+    text-align: center;
+    padding: 10px;
 }

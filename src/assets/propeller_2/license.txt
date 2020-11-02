@@ -1,0 +1,11 @@
+Model Information:
+* title:	propeller 2
+* source:	https://sketchfab.com/3d-models/propeller-2-b8fed189a84741a0827b1006ba003a94
+* author:	cleisonrodrigues (https://sketchfab.com/cleisonctga)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "propeller 2" (https://sketchfab.com/3d-models/propeller-2-b8fed189a84741a0827b1006ba003a94) by cleisonrodrigues (https://sketchfab.com/cleisonctga) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

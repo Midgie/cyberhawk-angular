@@ -52,7 +52,7 @@ export class ReportComponent implements OnInit {
                     return data.item.toString().toLowerCase().includes(filter) 
                         || data.report.toString().toLowerCase().includes(filter);
                 };
-
+                // setup the sort and paginator
                 this.tableData.paginator = this.paginator;
                 this.tableData.sort = this.sort;
             } );
