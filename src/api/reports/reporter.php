@@ -11,10 +11,12 @@ class DefaultReporter implements Report {
     protected $hasStrikeDmg = false;
 
     function __construct( $message ) {
+        // set message default will return the item number
         $this->message = $message;
     }
 
     public function getReport() {
+        // return the report compatible with previous iteration
         return array(
             'hasCoatingDamage' => $this->hasCoatDmg,
             'hasLightningStrike' => $this->hasStrikeDmg,
